@@ -1,7 +1,5 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
-import java.io.PrintWriter;
 
 /**
  * a program that creates networks of nodes
@@ -13,9 +11,11 @@ import java.io.PrintWriter;
 public class StudentNode {
 
     private static ArrayList<StudentNode> allStudents;
-    private static int networkSize = 50;
-    private static double probability = 0.3;
+    private static int networkSize;
+    private static double probability;
     private static Integer[][] A = new Integer[networkSize][networkSize];
+    private static BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+    private static PrintWriter userOut = new PrintWriter(System.out,true);
 
 
     private ArrayList<StudentNode> connectedTo;
@@ -93,11 +93,18 @@ public class StudentNode {
     }
 
     public static void main(String[] args) {
-        allStudents = new ArrayList<>();
-        fillStudents();
-        createMatrix();
-        String pathname = "PATH NAME HERE";
         try {
+            userOut.println("What is the network size?");
+            networkSize = Integer.parseInt(userInput.readLine());
+            userOut.println("What is the probability of an edge between two nodes?");
+            probability = Double.parseDouble(userInput.readLine());
+            userOut.println("What is the path of the file matrix should be written to?");
+            String pathname = userInput.readLine();
+            userOut.close();
+            userInput.close();
+            allStudents = new ArrayList<>();
+            fillStudents();
+            createMatrix();
             PrintWriter writer = new PrintWriter(new File(pathname));
             printMatrix(writer);
             writer.flush();
