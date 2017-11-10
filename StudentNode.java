@@ -13,7 +13,7 @@ public class StudentNode {
     private static ArrayList<StudentNode> allStudents;
     private static int networkSize;
     private static double probability;
-    private static Integer[][] A = new Integer[networkSize][networkSize];
+    private static Integer[][] A;
     private static BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
     private static PrintWriter userOut = new PrintWriter(System.out,true);
 
@@ -94,15 +94,16 @@ public class StudentNode {
 
     public static void main(String[] args) {
         try {
-            userOut.println("What is the network size?");
+            userOut.println("What is the network size? (any whole number)");
             networkSize = Integer.parseInt(userInput.readLine());
-            userOut.println("What is the probability of an edge between two nodes?");
+            userOut.println("What is the probability of an edge between two nodes? (any decimal between 0-1)");
             probability = Double.parseDouble(userInput.readLine());
-            userOut.println("What is the path of the file matrix should be written to?");
+            userOut.println("What would you like to name this file? Hint: include file extension");
             String pathname = userInput.readLine();
             userOut.close();
             userInput.close();
             allStudents = new ArrayList<>();
+            A = new Integer[networkSize][networkSize];
             fillStudents();
             createMatrix();
             PrintWriter writer = new PrintWriter(new File(pathname));
